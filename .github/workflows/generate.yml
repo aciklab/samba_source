@@ -94,4 +94,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.get_samba.outputs.path }}
           asset_name: ${{ steps.get_samba.outputs.filename }}
-          asset_content_type: application/x-tar
+          asset_content_type: application/tar+gzip
