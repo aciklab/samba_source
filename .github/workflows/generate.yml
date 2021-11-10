@@ -70,17 +70,6 @@ jobs:
           
           echo ::set-output name=path::$(pwd)/"$package_name"${{steps.date.outputs.date}}.tar.gz
           echo ::set-output name=filename::"$package_name"${{steps.date.outputs.date}}.tar.gz
-      
-      - name: Push Tar to Another Repository
-        id: push_tar
-        run: |
-          git clone https://.:${{ secrets.GITHUB_TOKEN }}@github.com/project target
-          rm everything but the .git directory
-          copy source\files target
-          cd target
-          git add .
-          git diff-index --quiet HEAD || git commit -m "Automatic publish from github.com/project"
-          git push target master
           
       - name: Create Release
         id: create_release
