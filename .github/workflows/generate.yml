@@ -43,10 +43,16 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y%m%d-%H%M%S')"
 
       - name: Prepare docker file
+        id: prepare
         run: |
           . build/version
+          echo "::set-output name=os_name::$os_name"
+          echo "::set-output name=os_version::$os_version"
+          echo "::set-output name=samba_version::$samba_version"
+          
           cat Dockerfiles/$os_name/$os_name-$os_version-$samba_version.dockerfile > Dockerfile
           cat Dockerfile
+          
           
       - name: Build Docker
         run: |
@@ -59,11 +65,22 @@ jobs:
           docker create -ti --name tar_container generate_tar bash
           mkdir opt
           docker cp tar_container:/opt/samba.tar.gz ./
-          package_name="samba-$os_name$os_version-$samba_version-"
+          package_name="samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-"
           mv samba.tar.gz $package_name
           
           echo ::set-output name=path::$(pwd)/"$package_name"${{steps.date.outputs.date}}.tar.gz
           echo ::set-output name=filename::"$package_name"${{steps.date.outputs.date}}.tar.gz
+      
+      - name: Push Tar to Another Repository
+        id: push_tar
+        run: |
+          git clone https://.:${{ secrets.GITHUB_TOKEN }}@github.com/project target
+          rm everything but the .git directory
+          copy source\files target
+          cd target
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Automatic publish from github.com/project"
+          git push target master
           
       - name: Create Release
         id: create_release
@@ -71,13 +88,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: source-$os_name-$os_version-$samba_version
-          release_name: source-$os_name-$os_version-$samba_version
+          tag_name: source-${{steps.prepare.outputs.os_name}}-${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}
+          release_name: source-${{steps.prepare.outputs.os_name}}-${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}
           body: |
             Changes in this Release
               - Will be add.
           draft: false
           prerelease: false
+          
+      
           
       - name: Upload the Samba Source Tar to Release Assets
         id: upload-release-asset
