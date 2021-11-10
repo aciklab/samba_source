@@ -72,8 +72,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: source-${{steps.prepare.outputs.os_name}}-${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}
-          release_name: source-${{steps.prepare.outputs.os_name}}-${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}
+          tag_name: source-${{steps.prepare.outputs.os_name}}-${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}
+          release_name: source-${{steps.prepare.outputs.os_name}}-${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}
           body: |
             Changes in this Release
               - Will be add.
