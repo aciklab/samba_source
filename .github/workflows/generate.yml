@@ -1,0 +1,88 @@
+name: Generate Samba Tar
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches: ["main"]
+    
+    tags:
+      - deb*
+      - all*
+
+
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: generate_samba_tar
+
+jobs:
+  # Run tests.
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Run tests
+        run: |
+          if ! [ -f Dockerfile ]; then
+            docker 
+          fi
+    
+  build:
+    needs: prepare
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+        
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d-%H%M%S')"
+
+      - name: Prepare docker file
+        run: |
+          . build/version
+          cat Dockerfiles/$os_name/$os_name-$os_version-$samba_version.dockerfile > Dockerfile
+          cat Dockerfile
+          
+      - name: Build Docker
+        run: |
+          docker build --file ./Dockerfile -t generate_tar .
+          docker run generate_tar
+      
+      - name: Get Samba From Docker
+        run: |
+          docker create -ti --name tar_container generate_tar bash
+          mkdir opt
+          docker cp tar_container:/opt/samba.tar.gz ./
+          tar -zxvf samba.tar.gz
+          rm samba.tar.gz
+          ls -al /
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: source-$os_name-$os_version-$samba_version
+          release_name: source-$os_name-$os_version-$samba_version
+          body: |
+            Changes in this Release
+              - Will be add.
+          draft: false
+          prerelease: false
+          
+      - name: Upload the Samba Source Tar to Release Assets
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.build_package.outputs.path }}
+          asset_name: ${{ steps.build_package.outputs.filename }}
+          asset_content_type: application/x-tar
