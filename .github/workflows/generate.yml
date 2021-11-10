@@ -59,7 +59,7 @@ jobs:
       - name: Get Samba From Docker
         id: get_samba
         run: |
-          
+          touch samba.tar.gz
           package_name="samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-"
           mv samba.tar.gz $package_name".tar.gz"
           
