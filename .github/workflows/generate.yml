@@ -61,7 +61,7 @@ jobs:
         run: |
           touch samba.tar.gz
           package_name="samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz"
-          mv samba.tar.gz $package_name"
+          mv samba.tar.gz $package_name
           
           echo ::set-output name=path::$(pwd)/"$package_name"
           echo ::set-output name=filename::"$package_name"
