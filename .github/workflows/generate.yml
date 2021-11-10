@@ -59,8 +59,10 @@ jobs:
       - name: Get Samba From Docker
         id: get_samba
         run: |
-          touch samba.tar.gz
+          touch 1
           package_name="samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz"
+          tar -czvf samba.tar.gz 1
+          file --mime-type -b samba.tar.gz
           mv samba.tar.gz $package_name
           
           echo ::set-output name=path::$(pwd)/"$package_name"
