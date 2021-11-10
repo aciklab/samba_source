@@ -66,6 +66,7 @@ jobs:
           echo ::set-output name=path::$(pwd)/"$package_name"${{steps.date.outputs.date}}.tar.gz
           echo ::set-output name=filename::"$package_name"${{steps.date.outputs.date}}.tar.gz
           pwd
+          ls -la
           echo "$package_name"${{steps.date.outputs.date}}.tar.gz
           
       - name: Create Release
