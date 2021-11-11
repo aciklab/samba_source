@@ -100,4 +100,4 @@ jobs:
           git push origin https:://$USERNAME:$REPO_KEY@github.com/aciklab/samba.git HEAD:master --force
         env:
           REPO_KEY: ${{secrets.PUSH_TOKEN}}
-          USERNAME: github-actions[bot]
+          USERNAME: zekiahmetbayar
