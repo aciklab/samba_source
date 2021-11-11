@@ -94,7 +94,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
         with:
-          source-directory: 'output'
+          source-directory: 'samba.tar.gz'
           destination-github-username: 'aciklab'
           destination-repository-name: 'samba'
           user-email: zekiahmetbayar1@gmail.com
