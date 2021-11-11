@@ -97,7 +97,7 @@ jobs:
           mv samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz samba/samba_source/
           git add .
           git commit -m "Added new samba source, version: ${{steps.prepare.outputs.samba_version}}"
-          git push origin https:://$USERNAME:$REPO_KEY@github.com/aciklab/samba.git HEAD:master --force
+          git push origin https:://$USERNAME:$REPO_KEY@github.com/aciklab/samba.git HEAD:main --force
         env:
           REPO_KEY: ${{secrets.PUSH_TOKEN}}
           USERNAME: zekiahmetbayar
