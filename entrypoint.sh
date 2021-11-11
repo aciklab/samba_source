@@ -64,7 +64,7 @@ fi
 mv "$TEMP_DIR/.git" "$CLONE_DIR/.git"
 
 echo "[+] List contents of $SOURCE_DIRECTORY"
-ls "$SOURCE_DIRECTORY"
+ls -al
 
 echo "[+] Checking if local $SOURCE_DIRECTORY exist"
 if [ ! -d "$SOURCE_DIRECTORY" ]
