@@ -69,6 +69,7 @@ ls $SOURCE_DIRECTORY
 echo "[+] Checking if local $SOURCE_DIRECTORY exist"
 if [ ! -d "$SOURCE_DIRECTORY" ]
 then
+	ls -al
 	echo "ERROR: $SOURCE_DIRECTORY does not exist"
 	echo "This directory needs to exist when push-to-another-repository is executed"
 	echo
