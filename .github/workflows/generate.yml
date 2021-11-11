@@ -93,11 +93,11 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git clone https:://$USERNAME:$REPO_KEY@github.com/aciklab/samba.git
+          git clone https://github.com/aciklab/samba.git
           mv samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz samba/samba_source/
           git add samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz
           git commit -m "Added new samba source, version: ${{steps.prepare.outputs.samba_version}}"
-          git push origin HEAD:master --force
+          git push origin https:://$USERNAME:$REPO_KEY@github.com/aciklab/samba.git HEAD:master --force
         env:
           REPO_KEY: ${{secrets.PUSH_TOKEN}}
           USERNAME: github-actions[bot]
