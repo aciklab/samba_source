@@ -60,6 +60,8 @@ jobs:
           tar -czvf samba.tar.gz 1
           package_name="samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz"
           mv samba.tar.gz $package_name
+          mkdir samba_directory
+          cp $package_name samba_directory
           
           echo ::set-output name=path::$(pwd)/"$package_name"
           echo ::set-output name=filename::"$package_name"
@@ -94,7 +96,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
         with:
-          source-directory: "samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz"
+          source-directory: 'samba_directory'
           destination-github-username: 'aciklab'
           destination-repository-name: 'samba'
           user-email: zekiahmetbayar1@gmail.com
