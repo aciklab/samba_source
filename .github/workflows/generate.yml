@@ -84,8 +84,6 @@ jobs:
           draft: false
           prerelease: false
           
-      
-          
       - name: Upload the Samba Source Tar to Release Assets
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
@@ -96,3 +94,14 @@ jobs:
           asset_path: ${{ steps.get_samba.outputs.path }}
           asset_name: ${{ steps.get_samba.outputs.filename }}
           asset_content_type: application/tar+gzip
+          
+      - name: Push samba source to another repository
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz
+          git commit -m "Added new samba source, version: ${{steps.prepare.outputs.samba_version}}"
+          git push https:://$USERNAME:$REPO_KEY@github.com/aciklab/samba.git
+        env:
+          REPO_KEY: ${{secrets.PUSH_TOKEN}}
+          USERNAME: github-actions[bot]
