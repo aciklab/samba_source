@@ -52,12 +52,19 @@ jobs:
           
           cat Dockerfiles/$os_name/$os_name-$os_version-$samba_version.dockerfile > Dockerfile
           cat Dockerfile
+
+      - name: Build Docker
+        run: |
+          docker build --file ./Dockerfile -t generate_tar .
+          docker run generate_tar
+
       
       - name: Get Samba From Docker
         id: get_samba
         run: |
-          touch 1
-          tar -czvf samba.tar.gz 1
+          docker create -ti --name tar_container generate_tar bash
+          docker cp tar_container:/opt/samba.tar.gz ./
+
           package_name="samba-${{steps.prepare.outputs.os_name}}${{steps.prepare.outputs.os_version}}-${{steps.prepare.outputs.samba_version}}-${{steps.date.outputs.date}}.tar.gz"
           mv samba.tar.gz $package_name
           mkdir samba_directory
