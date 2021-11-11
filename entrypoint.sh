@@ -67,7 +67,7 @@ echo "[+] List contents of $SOURCE_DIRECTORY"
 ls $SOURCE_DIRECTORY
 
 echo "[+] Checking if local $SOURCE_DIRECTORY exist"
-if [ -d "$SOURCE_DIRECTORY" ]
+if [ ! -f "$SOURCE_DIRECTORY" ]
 then
 	ls -al
 	echo "ERROR: $SOURCE_DIRECTORY does not exist"
