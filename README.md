@@ -1,7 +1,7 @@
 # samba_source
 Samba source code generator.
 
-# Dockerfile Adlandırma Standartı
+# Dockerfile Naming Standard
 
 ```bash
 source build/version
