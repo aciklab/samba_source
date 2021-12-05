@@ -1,4 +1,4 @@
-![samba](samba.png)
+![samba](https://github.com/zekiahmetbayar/zekiahmetbayar.github.io/blob/master/images/samba.png)
 
 # Samba Compiler
 
