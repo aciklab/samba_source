@@ -4,4 +4,4 @@
 
 os_name=debian
 os_version=10
-samba_version=4p15p2
+samba_version=4p15p3
