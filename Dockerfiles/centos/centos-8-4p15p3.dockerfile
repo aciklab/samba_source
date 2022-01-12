@@ -134,21 +134,6 @@ RUN cd /usr/src; curl -O https://download.samba.org/pub/samba/stable/samba-$samb
 RUN cd /usr/src/samba-$sambaver; ./configure --prefix=/usr  --sbindir=/usr/sbin  --bindir=/usr/bin  --with-configdir=/etc/samba  --with-logfilebase=/var/log/samba  --libdir=/usr/lib64  --datarootdir=/usr/share  --datadir=/usr/share  --with-modulesdir=/usr/lib64/samba  --with-lockdir=/var/lib/samba/lock  --with-statedir=/var/lib/samba  --with-cachedir=/var/lib/samba  --with-piddir=/run  --with-smbpasswd-file=/var/lib/samba/private/smbpasswd  --with-privatedir=/var/lib/samba/private  --with-bind-dns-dir=/var/lib/samba/bind-dns  --enable-cups --with-acl-support --with-ads  --with-automount --enable-fhs --with-pam --with-quotas --with-syslog --with-utmp --with-shared-modules=idmap_rid,idmap_ad,idmap_hash,idmap_adex
 RUN cd /usr/src/samba-$sambaver; make
 RUN cd /usr/src/samba-$sambaver; make install DESTDIR=/opt/samba4/
-RUN mkdir -p /opt/samba4/usr/lib/systemd/system/
-RUN echo """[Unit]
-    Description=Samba AD Daemon
-    Wants=network-online.target
-    After=network.target network-online.target rsyslog.service
-
-    [Service]
-    Type=forking
-    PIDFile=/run/samba.pid
-    LimitNOFILE=16384
-    ExecStart=/usr/sbin/samba --daemon
-    ExecReload=/bin/kill -HUP $MAINPID
-
-    [Install]
-    WantedBy=multi-user.target""" > /opt/samba4/usr/lib/systemd/system/samba4.service
 
 
 # [ Pack ]
