@@ -1,4 +1,4 @@
-name: Generate Samba Tar for CentOS
+name: Generate Samba Tar for CentOS8
 
 on:
   push:
