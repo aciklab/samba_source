@@ -1,0 +1,3 @@
+os_name=centos
+os_version=8
+samba_version=4p15p3
