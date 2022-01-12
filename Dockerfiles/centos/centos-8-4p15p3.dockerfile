@@ -136,19 +136,19 @@ RUN cd /usr/src/samba-$sambaver; make
 RUN cd /usr/src/samba-$sambaver; make install DESTDIR=/opt/samba4/
 RUN mkdir -p /opt/samba4/usr/lib/systemd/system/
 RUN echo """[Unit]
-Description=Samba AD Daemon
-Wants=network-online.target
-After=network.target network-online.target rsyslog.service
+    Description=Samba AD Daemon
+    Wants=network-online.target
+    After=network.target network-online.target rsyslog.service
 
-[Service]
-Type=forking
-PIDFile=/run/samba.pid
-LimitNOFILE=16384
-ExecStart=/usr/sbin/samba --daemon
-ExecReload=/bin/kill -HUP $MAINPID
+    [Service]
+    Type=forking
+    PIDFile=/run/samba.pid
+    LimitNOFILE=16384
+    ExecStart=/usr/sbin/samba --daemon
+    ExecReload=/bin/kill -HUP $MAINPID
 
-[Install]
-WantedBy=multi-user.target""" > /opt/samba4/usr/lib/systemd/system/samba4.service
+    [Install]
+    WantedBy=multi-user.target""" > /opt/samba4/usr/lib/systemd/system/samba4.service
 
 
 # [ Pack ]
