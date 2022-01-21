@@ -22,7 +22,7 @@ RUN apt -yq install samba-*
 ## RUN apt -y install language-pack-en   
 
 # [ Version ]
-ARG sambaver=4.15.3
+ARG sambaver=4.15.4
 
 # [ Compile ]
 RUN mkdir /opt/samba4
