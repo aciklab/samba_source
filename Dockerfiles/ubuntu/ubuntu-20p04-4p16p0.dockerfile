@@ -32,5 +32,5 @@ RUN cd /usr/src/samba-$sambaver; make
 RUN cd /usr/src/samba-$sambaver; make install DESTDIR=/opt/samba4/
 
 # [ Pack ]
-RUN cd /opt/; tar -czvf samba.tar.gz /opt/samba4/
+RUN cd /opt/; tar -czvf samba_ubuntu.tar.gz /opt/samba4/
 RUN cd /opt/; ls -la

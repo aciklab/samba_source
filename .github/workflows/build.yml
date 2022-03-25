@@ -58,16 +58,16 @@ jobs:
 
           cat Dockerfiles/$os_name/$os_name-$os_version-$samba_version.dockerfile > Dockerfile_ubuntu
 
-      - name: Build Docker For Debian Source
-        run: |
-          docker build --file ./Dockerfile -t generate_tar_for_debian  .
-          docker run generate_tar_for_debian
-      
       - name: Build Docker For Ubuntu Source
         run: |
           docker build --file ./Dockerfile_ubuntu -t generate_tar_for_ubuntu .
           docker run generate_tar_for_ubuntu
 
+      - name: Build Docker For Debian Source
+        run: |
+          docker build --file ./Dockerfile -t generate_tar_for_debian  .
+          docker run generate_tar_for_debian
+      
       - name: Get Samba From Docker
         id: get_samba
         run: |
