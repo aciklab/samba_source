@@ -45,16 +45,16 @@ jobs:
         id: prepare
         run: |
           . build/version_debian
-          echo "::set-output name=os_name::$os_name_deb"
-          echo "::set-output name=os_version::$os_version_deb"
-          echo "::set-output name=samba_version::$samba_version_deb"
+          echo "::set-output name=os_name_deb::$os_name"
+          echo "::set-output name=os_version_deb::$os_version"
+          echo "::set-output name=samba_version_deb::$samba_version"
           
           cat Dockerfiles/$os_name/$os_name-$os_version-$samba_version.dockerfile > Dockerfile
 
           . build/version_ubuntu
-          echo "::set-output name=os_name::$os_name_ubuntu"
-          echo "::set-output name=os_version::$os_version_ubuntu"
-          echo "::set-output name=samba_version::$samba_version_ubuntu"
+          echo "::set-output name=os_name_ubuntu::$os_name"
+          echo "::set-output name=os_version_ubuntu::$os_version"
+          echo "::set-output name=samba_version_ubuntu::$samba_version"
 
           cat Dockerfiles/$os_name/$os_name-$os_version-$samba_version.dockerfile > Dockerfile_ubuntu
 
@@ -93,8 +93,6 @@ jobs:
           echo ::set-output name=debian_filename::"$deb_package_name"
           echo ::set-output name=ubuntu_filename::"$ubuntu_package_name"
 
-      
-          
       - name: Create Release
         id: create_release
         uses: actions/create-release@main
