@@ -110,7 +110,7 @@ jobs:
           prerelease: false
           
       - name: Upload the Samba Source Debian Tar to Release Assets
-        id: upload-release-asset
+        id: upload-release-asset-1
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -121,7 +121,7 @@ jobs:
           asset_content_type: application/tar+gzip
       
       - name: Upload the Samba Source Ubuntu Tar to Release Assets
-        id: upload-release-asset
+        id: upload-release-asset-2
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
