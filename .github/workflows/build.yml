@@ -74,7 +74,7 @@ jobs:
           docker create -ti --name tar_container_for_debian generate_tar_for_debian bash
           docker cp tar_container_for_debian:/opt/samba_debian.tar.gz ./
 
-          docker create -ti --name tar_container_for_ubuntu generate_tar bash
+          docker create -ti --name tar_container_for_ubuntu generate_tar_for_ubuntu bash
           docker cp tar_container_for_ubuntu:/opt/samba_ubuntu.tar.gz ./
 
           deb_package_name="samba-${{steps.prepare.outputs.os_name_deb}}${{steps.prepare.outputs.os_version_deb}}-${{steps.prepare.outputs.samba_version_deb}}-${{steps.date.outputs.date}}.tar.gz"
