@@ -1,0 +1,7 @@
+# os_name=debian/rhel/ubuntu
+# os_version=9/21p1/19p5
+# samba_version=4p11p2/4p15p2
+
+os_name=debian
+os_version=10
+samba_version=4p16p0
